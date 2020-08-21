@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block body %}
+    <h1>Создание аккаунта</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Создать аккаунт</button>
+    </form>
+{% endblock %}
+</body>
+</html>

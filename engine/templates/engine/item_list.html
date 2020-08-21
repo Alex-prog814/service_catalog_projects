@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категории</title>
+</head>
+<body>
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block body %}
+    <h1>Список сервисов</h1>
+    <a role="button" class="btn btn-success" href="{% url 'add-item' %}"> Добавить заметку</a><br>
+    <br>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Image</th>
+            <th scope="'col">Category</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+            <tr>
+                <td><a href="{% url 'item-details' item.id %}">{{ item.title }}</a></td>
+                <td>{% if item.image %}<img src="{{ item.image.url }}" width="100" height="100">{% endif %}</td>
+                <td><p>{{ item.category }}</p></td>
+                <td><a class="btn btn-success btn-sm" role="button" href="{% url 'update-item' item.id %}">Изменить</a>
+                    <a class="btn btn-danger btn-sm" role="button" href="{% url 'delete-item' item.id %}">Удалить</a></td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock body %}
+</body>
+</html>
+
+

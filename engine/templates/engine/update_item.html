@@ -1,0 +1,18 @@
+{% extends 'includes/base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update post {{ item.id }}</title>
+</head>
+<body>
+{% load static %}
+{% block body %}
+    <h1>{{ item.title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ item_form.as_p }}
+        <button type="submit" value="Submit" class="btn btn-primary">Сохранить</button>
+    </form>
+{% endblock body %}
+</body>
+</html>

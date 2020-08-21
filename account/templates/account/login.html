@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block body %}
+    <h1>Войдите в аккаунт</h1>
+    <p>Изменять, добавлять или удалять заметки могут только <strong>зарегистрированные</strong> пользователи!</p>
+    <p>Если у вас еще нет аккаунта перейдите по этой <a href="{% url 'signup' %}"><strong>ссылке</strong></a></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Вход</button>
+    </form>
+{% endblock %}
+</body>
+</html>

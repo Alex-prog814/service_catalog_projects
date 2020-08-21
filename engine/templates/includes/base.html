@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title> Список сервисов </title>{% endblock title %}
+    <style></style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="{% url 'home-page' %}" class="navbar-text">HOME</a>
+        <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li class="navbar-item">
+                <span>{{ request.user.username }}</span>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+            </li>
+            {% else %}
+            <li class="navbar-item mr-auto">
+                <a class="navbar-link" href="{% url 'login' %}">Войти в аккаунт</a>
+            </li>
+            <li class="navbar-item">
+                <a class="navbar-link" href="{% url 'signup' %}">Зарегистрироваться</a>
+            </li>
+            {% endif %}
+        </ul>
+        {% block search %}
+        <form class="form-inline" action="{% url 'items-list' %}" method="get">
+        <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+{% endblock search %}
+    </nav>
+    <div class="container">
+        {% block body %}{% endblock body %}
+    </div>
+</body>
+</html>

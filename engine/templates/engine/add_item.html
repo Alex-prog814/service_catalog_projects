@@ -1,0 +1,14 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+    {% block title %}
+    <title>Добавление заметки</title>
+    {% endblock title %}
+
+{% block body %}
+    <h2>Добавить новую заметку</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ item_form.as_p }}
+        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+    </form>
+{% endblock body %}

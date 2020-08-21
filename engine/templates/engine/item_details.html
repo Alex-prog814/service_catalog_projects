@@ -1,0 +1,22 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+    {% block title %}
+    <title>{{ item.title }}</title>
+    <style>.inline { display:inline;
+                     margin: 5px;}</style>
+    {% endblock title %}
+
+{% block body %}
+
+    <h1>{{ item.title }}</h1><br>
+    <p>{{ item.text }}</p><br>
+    {% if item.image %}<img width="250" height="250" src="{{ item.image.url }}">{% endif %}<br>
+<p>Дата создания: <i>{{ item.creation_date }}</i></p>
+    <form class="inline"  action="{% url 'update-item' item.id %}">
+        <button type="submit" class="btn btn-success">Изменить</button>
+    </form>
+    <form class="inline" action="{% url 'delete-item' item.id %}">
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+
+{% endblock body %}
