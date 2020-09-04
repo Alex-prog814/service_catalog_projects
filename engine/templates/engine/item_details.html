@@ -12,6 +12,7 @@
     <p>{{ item.text }}</p><br>
     {% if item.image %}<img width="250" height="250" src="{{ item.image.url }}">{% endif %}<br>
 <p>Дата создания: <i>{{ item.creation_date }}</i></p>
+<p>Автор: <i>{{ item.author }}</i></p>
     <form class="inline"  action="{% url 'update-item' item.id %}">
         <button type="submit" class="btn btn-success">Изменить</button>
     </form>

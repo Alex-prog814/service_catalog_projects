@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 
 from django.urls import reverse_lazy
@@ -12,7 +12,7 @@ class ItemsListView(ListView):
     model = Item
     template_name = 'engine/item_list.html'
     context_object_name = 'items'
-
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -40,24 +40,36 @@ class ViewsMixin:
         context['item_form'] = self.get_form(self.get_form_class())
         return context
 
+
 class AddItemView(LoginRequiredMixin, ViewsMixin, CreateView):
     model = Item
     template_name = 'engine/add_item.html'
     form_class = AddItemForm
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(AddItemView, self).form_valid(form)
 
 
-class UpdateItemView(LoginRequiredMixin, ViewsMixin, UpdateView):
+class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, ViewsMixin, UpdateView):
     model = Item
     template_name = 'engine/update_item.html'
     form_class = UpdateItemForm
     context_object_name = 'item'
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
-class DeleteItemView(LoginRequiredMixin, DeleteView):
+
+class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Item
     template_name = 'engine/delete_item.html'
     success_url = reverse_lazy('home-page')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
 
 class CategoriesListView(ListView):

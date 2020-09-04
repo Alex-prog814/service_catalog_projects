@@ -9,12 +9,14 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Item(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='items', verbose_name='Категория')
     text = models.TextField(verbose_name='Содержание')
     creation_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='items', verbose_name='Изображение')
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='items')
 
     def __str__(self):
         return self.title
@@ -22,3 +24,6 @@ class Item(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('item-details', args=[str(self.id)])
+
+    class Meta:
+        ordering = ['-creation_date']

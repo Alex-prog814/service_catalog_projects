@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'stores_engine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'stores_engine',
+        'NAME': 'stores_engine2',
         'USER': 'alex',
         'PASSWORD': 'alex777',
         'HOST': 'localhost',
@@ -128,3 +128,5 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# AUTH_USER_MODEL = 'account.User'
